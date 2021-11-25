@@ -3,16 +3,25 @@
 #include<GLFW/glfw3.h>
 #include<vector>
 #include<algorithm>
+#include<iostream>
+
 #include "ShaderMan.h"
+
 class GameObject {
 public:
-	GameObject(const std::vector<GLfloat> *objVertices, const std::vector<GLfloat> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLint> *EBOvector);
-	void draw(ShaderMan shaderManager);
+	GameObject();
 	void move(float x, float y, float z);
+	void draw(ShaderMan* shaderManager);
+protected:
+	void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector);
 private:
 	std::vector<GLfloat>* VBO;
-	std::vector<GLint>* EBO;
-	const std::vector<GLfloat>* objVertices;
-	const std::vector<GLfloat>* objIndices;
-
-}
+	std::vector<GLuint>* EBO;
+	std::vector<GLfloat>* objVertices;
+	std::vector<GLuint>* objIndices;
+	float x, y, z;
+	int EBOindex;
+	int numVerts;
+	int numInds;
+	bool checkBool;
+};

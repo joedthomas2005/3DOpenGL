@@ -3,7 +3,7 @@
 #include<GLFW/glfw3.h>
 #include<fstream>
 #include<string>
-
+#include<iostream>
 class ShaderMan {
 public:
 	GLuint ID;
