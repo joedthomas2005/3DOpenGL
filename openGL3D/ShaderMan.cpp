@@ -4,16 +4,16 @@ ShaderMan::ShaderMan(const char* vertShaderPath, const char* fragShaderPath) {
 
 	std::ifstream fileStream;
 
-	std::string inputString;
-
+	std::string vertString;
+	std::string fragString;
 	fileStream.open(vertShaderPath);
-	inputString = std::string((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
-	const char* vertShader = inputString.c_str();
+	vertString = std::string((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
+	const char* vertShader = vertString.c_str();
 	std::cout << vertShader << std::endl;
 	fileStream.close();
 	fileStream.open(fragShaderPath);
-	inputString = std::string((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
-	const char* fragShader = inputString.c_str();
+	fragString = std::string((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
+	const char* fragShader = fragString.c_str();
 	std::cout << fragShader << std::endl;
 	fileStream.close();
 

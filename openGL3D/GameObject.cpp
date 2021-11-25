@@ -44,8 +44,8 @@ void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *ob
 
 void GameObject::draw(ShaderMan* ShaderManager) {
 	ShaderManager->setVec3f("transform", x, y, z);
-	//std::cout << "DRAWING " << numVerts << " INDICES FROM " << EBOindex << std::endl;
-	glDrawElements(GL_TRIANGLES, numVerts, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
+	std::cout << "DRAWING " << numInds << " INDICES FROM " << EBOindex << std::endl;
+	glDrawElements(GL_TRIANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
 }
 
 void GameObject::move(float x, float y, float z) {
