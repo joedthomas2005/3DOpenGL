@@ -13,7 +13,8 @@ public:
 		SPACE = 4,
 		ESCAPE = 5
 	};
-	Input(GLFWwindow* window, bool* KeyArray);
+
+	Input(GLFWwindow* window);
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	bool isKeyDown(KeyCode key);
 private:

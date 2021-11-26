@@ -1,6 +1,6 @@
 #include "Square.h"
 
-Square::Square(float width, float height, float r, float g, float b, std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO) {
+Square::Square(float width, float height, float x, float y, float z, float r, float g, float b, std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO) : GameObject(x, y, z){
 	std::vector<GLfloat> verts;
 	
 	std::vector<GLuint> indices = { 2,3,1, 2,1,0 };

@@ -9,7 +9,7 @@
 
 class GameObject {
 public:
-	GameObject();
+	GameObject(float x, float y, float z);
 	void move(float x, float y, float z);
 	void draw(ShaderMan* shaderManager);
 protected:
@@ -23,5 +23,4 @@ private:
 	int EBOindex;
 	int numVerts;
 	int numInds;
-	bool checkBool;
 };

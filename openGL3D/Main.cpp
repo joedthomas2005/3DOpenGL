@@ -10,7 +10,6 @@
 #include "BufferManager.h"
 int main() {
 	
-	bool keys[6] = { false };
 	glfwInit();
 	
 	Window *window = new Window(900, 800, "3D Project", 1);
@@ -19,38 +18,40 @@ int main() {
 		std::cout << "glad loading failed" << std::endl;
 	}
 
-	Input keyboard = Input(window->getWindow(), keys);
+	Input keyboard = Input(window->getWindow());
 
 	ShaderMan ShadingBloke = ShaderMan("shader.vert", "shader.frag");
 	
 	std::cout << "Loaded window and shader" << std::endl;
 
-	std::vector<Square> objects;
+	std::vector<GameObject*> objects;
 	std::vector<GLuint> indices;
 	std::vector<GLfloat> vertices;
 
-	Square square = Square(0.2f, 0.2f, 0.0f, 1.0f, 0.0f, &vertices, &indices);
 
-	std::cout << "Square Created" << std::endl;
 
-	objects.push_back(square);
-	
+	for (float x = 0.8f; x > -0.8f; x -= 0.2f) {
+		for (float y = 0.8f; y > -0.8f; y -= 0.2f) {
+			objects.push_back(new Square(0.15f, 0.15f, x, y, 0, 0.0f, 1.0f, 0.0f, &vertices, &indices));
+		}
+	}
+
 	BufferManager BufferMan = BufferManager(vertices, indices);
 
 	std::cout << "Buffer Objects Created" << std::endl;
 
-
-	window->setColor(1.0f, 0.0f, 0.0f, 1.0f);
+	window->setColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	while (!window->shouldClose()) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		if (keyboard.isKeyDown(Input::ESCAPE)) {
 			glfwSetWindowShouldClose(window->getWindow(), true);
 		}
+
 		ShadingBloke.use();
 
-		for (Square object : objects) {
-			object.draw(&ShadingBloke);
+		for (GameObject* object : objects) {
+			object->draw(&ShadingBloke);
 		}
 		window->update();
 	}

@@ -1,6 +1,6 @@
 #include "Input.h"
 bool keys[6] = { false };
-Input::Input(GLFWwindow* window, bool* KeyArray) {
+Input::Input(GLFWwindow* window) {
 	glfwSetKeyCallback(window, this->key_callback);
 };
 

@@ -9,12 +9,10 @@ ShaderMan::ShaderMan(const char* vertShaderPath, const char* fragShaderPath) {
 	fileStream.open(vertShaderPath);
 	vertString = std::string((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
 	const char* vertShader = vertString.c_str();
-	std::cout << vertShader << std::endl;
 	fileStream.close();
 	fileStream.open(fragShaderPath);
 	fragString = std::string((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
 	const char* fragShader = fragString.c_str();
-	std::cout << fragShader << std::endl;
 	fileStream.close();
 
 	GLuint vShader, fShader;
