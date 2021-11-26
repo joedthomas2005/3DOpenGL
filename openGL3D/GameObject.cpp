@@ -17,6 +17,7 @@ void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *ob
 	int EBOvertexoffset;
 	if (EBO->size() > 0) {
 		EBOvertexoffset = *std::max_element(EBO->begin(), EBO->end()) + 1;
+		std::cout << "INDICES INCREASED BY " << EBOvertexoffset << std::endl;
 	}
 	else {
 		EBOvertexoffset = 0;
@@ -24,7 +25,7 @@ void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *ob
 
 	
 	this->EBOindex = EBO->size();
-
+	std::cout << "STARTS AT INDEX " << EBOindex << std::endl;
 
 	for (int i = 0; i < objIndices->size(); i++) {
 		EBO->push_back((*objIndices)[i] + EBOvertexoffset);

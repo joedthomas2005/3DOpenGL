@@ -9,7 +9,6 @@ void Input::key_callback(GLFWwindow*, int key, int scancode, int action, int mod
 	case GLFW_KEY_RIGHT:
 		keys[RIGHT] = action == GLFW_PRESS ? true : action == GLFW_RELEASE ? false : keys[RIGHT];
 		break;
-
 	case GLFW_KEY_LEFT:
 		keys[LEFT] = action == GLFW_PRESS ? true : action == GLFW_RELEASE ? false : keys[LEFT];
 		break;
