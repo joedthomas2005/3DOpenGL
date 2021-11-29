@@ -1,6 +1,6 @@
 #include "Circle.h"
 
-Circle::Circle(float radius, int numberofVerts, float x, float y, float z, float r, float g, float b, std::vector<GLfloat> *VBO, std::vector<GLuint> *EBO) : GameObject(x,y,z) {
+Circle::Circle(float radius, int numberofVerts, float x, float y, float z, float r, float g, float b, std::vector<GLfloat> *VBO, std::vector<GLuint> *EBO, const char* texturePath) : GameObject(x,y,z) {
 	std::vector<GLfloat> verts;
 	std::vector<GLuint> inds;
 
@@ -31,8 +31,14 @@ Circle::Circle(float radius, int numberofVerts, float x, float y, float z, float
 		verts.push_back(r);
 		verts.push_back(g);
 		verts.push_back(b);
+		GLfloat textureX = 0.5f * cos(i * (PI / 180.0f));
+		GLfloat textureY = 0.5f * sin(i * (PI / 180.0f));
+		verts.push_back(textureX + 0.5f);
+		std::cout << "TEXURE X " << textureX + 0.5f << std::endl;
+		verts.push_back(textureY + 0.5f);
+		std::cout << "TEXTURE Y " << textureY + 0.5f << std::endl;
 	}
 
-	this->load(&verts, &inds, VBO, EBO);
+	this->load(&verts, &inds, VBO, EBO, texturePath);
 
 }

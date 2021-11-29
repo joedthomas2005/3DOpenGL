@@ -6,7 +6,22 @@ GameObject::GameObject(float x, float y, float z) {
 	this->z = z;
 }
 
-void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector) {
+void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, const char* texturePath) {
+	int texWidth, texHeight, numChannels;
+
+	unsigned char *data = stbi_load(texturePath, &texWidth, &texHeight, &numChannels, 0);
+
+	glGenTextures(1, &(this->texture));
+	glBindTexture(GL_TEXTURE_2D, this->texture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	stbi_image_free(data);
+
 	this->VBO = VBOvector;
 	this->EBO = EBOvector;
 	this->objIndices = objIndices;
@@ -40,6 +55,7 @@ void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *ob
 }
 
 void GameObject::draw(ShaderMan* ShaderManager) {
+	glBindTexture(GL_TEXTURE_2D, this->texture);
 	ShaderManager->setVec3f("transform", x, y, z);
 	glDrawElements(GL_TRIANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
 }

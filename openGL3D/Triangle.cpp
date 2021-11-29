@@ -8,5 +8,5 @@ Triangle::Triangle(float x1, float y1, float z1,
 
 	std::vector<GLfloat> verts = { x1, y1, z1, r, g, b, x2, y2, z2, r, g, b, x3, y3, z3, r, g, b };
 	std::vector<GLuint> indices = { 0,1,2 };
-	this->load(&verts, &indices, VBO, EBO);
+	//this->load(&verts, &indices, VBO, EBO);
 }

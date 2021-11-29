@@ -136,6 +136,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ShaderMan.cpp" />
     <ClCompile Include="Square.cpp" />
+    <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="WindowMan.cpp" />
   </ItemGroup>
@@ -146,12 +147,16 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="ShaderMan.h" />
     <ClInclude Include="Square.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="WindowMan.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader.frag" />
     <None Include="shader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
