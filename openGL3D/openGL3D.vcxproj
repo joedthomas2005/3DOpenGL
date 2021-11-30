@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3DCAFEEA-8FB1-496C-9765-FA3F32A313B5}</ProjectGuid>
     <RootNamespace>openGL3D</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -70,11 +70,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)Libraries\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Headers\;$(ProjectDir)Libraries\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)Libraries\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Headers\;$(ProjectDir)Libraries\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -128,35 +128,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BufferManager.cpp" />
-    <ClCompile Include="Circle.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="ShaderMan.cpp" />
-    <ClCompile Include="Square.cpp" />
-    <ClCompile Include="stb_image.cpp" />
-    <ClCompile Include="Triangle.cpp" />
-    <ClCompile Include="WindowMan.cpp" />
+    <ClInclude Include="Headers\BufferManager.h" />
+    <ClInclude Include="Headers\Circle.h" />
+    <ClInclude Include="Headers\GameObject.h" />
+    <ClInclude Include="Headers\Input.h" />
+    <ClInclude Include="Headers\ShaderMan.h" />
+    <ClInclude Include="Headers\Square.h" />
+    <ClInclude Include="Headers\stb_image.h" />
+    <ClInclude Include="Headers\Triangle.h" />
+    <ClInclude Include="Headers\WindowMan.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BufferManager.h" />
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="ShaderMan.h" />
-    <ClInclude Include="Square.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Triangle.h" />
-    <ClInclude Include="WindowMan.h" />
+    <ClCompile Include="Source\BufferManager.cpp" />
+    <ClCompile Include="Source\Circle.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\glad.c" />
+    <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\ShaderMan.cpp" />
+    <ClCompile Include="Source\Square.cpp" />
+    <ClCompile Include="Source\stb_image.cpp" />
+    <ClCompile Include="Source\Triangle.cpp" />
+    <ClCompile Include="Source\WindowMan.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader.frag" />
-    <None Include="shader.vert" />
+    <None Include="Resources\Shaders\shader.frag" />
+    <None Include="Resources\Shaders\shader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="wall.jpg" />
+    <Image Include="Resources\Textures\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
