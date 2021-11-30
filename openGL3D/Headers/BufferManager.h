@@ -1,0 +1,12 @@
+#pragma once
+#include<glad/glad.h>
+#include<GLFW/glfw3.h>
+#include<vector>
+
+class BufferManager {
+public:
+	BufferManager(std::vector<GLfloat> Vertices, std::vector<GLuint> Indices);
+
+private:
+	unsigned int VAO, VBO, EBO;
+};
