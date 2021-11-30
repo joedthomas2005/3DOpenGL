@@ -22,6 +22,8 @@ Circle::Circle(float radius, int numberofVerts, float x, float y, float z, float
 	verts.push_back(r);
 	verts.push_back(g);
 	verts.push_back(b);
+	verts.push_back(0.5f);
+	verts.push_back(0.5f);
 	const double PI = atan(1) * 4.0;
 	for (GLfloat i = 0; i < 360; i += 360/numberofVerts) {
 		std::cout << i << std::endl;
