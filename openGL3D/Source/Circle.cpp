@@ -24,17 +24,17 @@ Circle::Circle(float radius, int numberofVerts, float x, float y, float z, float
 	verts.push_back(b);
 	verts.push_back(0.5f);
 	verts.push_back(0.5f);
-	const double PI = atan(1) * 4.0;
+	const double PI = std::atan(1) * 4.0;
 	for (GLfloat i = 0; i < 360; i += 360/numberofVerts) {
 		std::cout << i << std::endl;
-		verts.push_back(radius * cos(i * (PI/180.0f)));
-		verts.push_back(radius * sin(i * (PI/180.0f)));
+		verts.push_back(radius * std::cos(i * (PI/180.0f)));
+		verts.push_back(radius * std::sin(i * (PI/180.0f)));
 		verts.push_back(0);
 		verts.push_back(r);
 		verts.push_back(g);
 		verts.push_back(b);
-		GLfloat textureX = 0.5f * cos(i * (PI / 180.0f));
-		GLfloat textureY = 0.5f * sin(i * (PI / 180.0f));
+		GLfloat textureX = 0.5f * std::cos(i * (PI / 180.0f));
+		GLfloat textureY = 0.5f * std::sin(i * (PI / 180.0f));
 		verts.push_back(textureX + 0.5f);
 		verts.push_back(textureY + 0.5f);
 	}

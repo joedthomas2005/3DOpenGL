@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<cmath>
 #include "GameObject.h"
 class Circle : public GameObject{
 public:
