@@ -59,3 +59,7 @@ void ShaderMan::use() {
 void ShaderMan::setVec3f(const char* name, GLfloat x, GLfloat y, GLfloat z) const {
 	glUniform3f(glGetUniformLocation(ID, name), x, y, z);
 }
+
+void ShaderMan::setMat4f(const char* name, glm::mat4 data) const{
+	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, glm::value_ptr(data));
+}

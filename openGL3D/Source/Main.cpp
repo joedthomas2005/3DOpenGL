@@ -2,6 +2,9 @@
 #include<GLFW/glfw3.h>
 #include<iostream>
 #include<vector>
+#include<glm/glm.hpp>
+#include<glm/gtc/matrix_transform.hpp>
+#include<glm/gtc/type_ptr.hpp>
 #include "stb_image.h"
 #include "WindowMan.h"
 #include "Input.h"
@@ -13,9 +16,9 @@
 #include "BufferManager.h"
 
 int main() {
-	
+
 	glfwInit();
-	
+
 	Window *window = new Window(900, 800, "3D Project", 1);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -32,11 +35,8 @@ int main() {
 	std::vector<GLuint> indices;
 	std::vector<GLfloat> vertices;
 
-	objects.push_back(new Circle(0.6f, 360, -0.5f, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, "wall.jpg"));
-	objects.push_back(new Circle(0.3f, 360, 0, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, "wall.jpg"));
-	objects.push_back(new Circle(0.1f, 360, 0.5f, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, "wall.jpg"));
-	objects.push_back(new Triangle(-0.1f, -0.8f, 0, 0, -0.7f, 0, 0.1f, -0.8f, 0, 1.0f, 0.0f, 0.0f, &vertices, &indices, "wall.jpg"));
-
+	objects.push_back(new Square(0.5f, 0.5f, 0, 0, 0, 45.0f,1.0f, 1.0f, 1.0f, &vertices, &indices, "wall.jpg"));	
+	
 	BufferManager BufferMan = BufferManager(vertices, indices);
 
 	std::cout << "Buffer Objects Created" << std::endl;
@@ -58,6 +58,7 @@ int main() {
 		if (keyboard.isKeyDown(Input::ESCAPE)) {
 			glfwSetWindowShouldClose(window->getWindow(), true);
 		}
+
 		ShadingBloke.use();
 
 		for (GameObject* object : objects) {

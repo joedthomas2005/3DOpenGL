@@ -1,9 +1,17 @@
 #include "GameObject.h"
 
-GameObject::GameObject(float x, float y, float z) {
+GameObject::GameObject(float x, float y, float z, float angle, float xscale, float yscale, float zscale) {
 	this->x = x;
 	this->y = y;
 	this->z = z;
+	this->angle = angle;
+	this->xScale = xscale;
+	this->yScale = yscale;
+	this->zScale = zscale;
+	this->trans = glm::mat4(1.0f);
+	this->trans = glm::translate(this->trans, glm::vec3(x, y, z));
+	this->trans = glm::rotate(this->trans, glm::radians(angle), glm::vec3(0.0f,0.0f,1.0f));
+	this->trans = glm::scale(this->trans, glm::vec3(xscale, yscale, zscale));
 }
 
 void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, const char* texturePath) {
@@ -58,8 +66,12 @@ void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *ob
 }
 
 void GameObject::draw(ShaderMan* ShaderManager) {
+	this->trans = glm::mat4(1.0f);
+	this->trans = glm::translate(this->trans, glm::vec3(x,y,z));
+	this->trans = glm::rotate(this->trans, glm::radians(angle), glm::vec3(0.0f,0.0f,1.0f));
+	this->trans = glm::scale(this->trans, glm::vec3(xScale, yScale, zScale));
 	glBindTexture(GL_TEXTURE_2D, this->texture);
-	ShaderManager->setVec3f("transform", x, y, z);
+	ShaderManager->setMat4f("transform", this->trans);
 	glDrawElements(GL_TRIANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
 }
 
@@ -67,4 +79,14 @@ void GameObject::move(float x, float y, float z) {
 	this->x += x;
 	this->y += y;
 	this->z += z;
+}
+
+void GameObject::scale(float x, float y, float z){
+	this->xScale += xScale;
+	this->yScale += yScale;
+	this->zScale += zScale;
+}
+
+void GameObject::rotate(float angle){
+	this->angle += angle;
 }
