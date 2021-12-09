@@ -4,9 +4,9 @@
 #include<fstream>
 #include<string>
 #include<iostream>
-#include<glm/glm.hpp>
-#include<glm/gtc/matrix_transform.hpp>
-#include<glm/gtc/type_ptr.hpp>
+#include<glm/glm/glm.hpp>
+#include<glm/glm/gtc/matrix_transform.hpp>
+#include<glm/glm/gtc/type_ptr.hpp>
 class ShaderMan {
 private:
 	const std::string SHADERDIR = "Resources/Shaders/";

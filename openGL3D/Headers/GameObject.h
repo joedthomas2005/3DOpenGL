@@ -1,9 +1,9 @@
 #pragma once
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
-#include<glm/glm.hpp>
-#include<glm/gtc/matrix_transform.hpp>
-#include<glm/gtc/type_ptr.hpp>
+#include<glm/glm/glm.hpp>
+#include<glm/glm/gtc/matrix_transform.hpp>
+#include<glm/glm/gtc/type_ptr.hpp>
 #include<vector>
 #include<algorithm>
 #include<string>

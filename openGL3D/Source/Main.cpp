@@ -2,9 +2,6 @@
 #include<GLFW/glfw3.h>
 #include<iostream>
 #include<vector>
-#include<glm/glm.hpp>
-#include<glm/gtc/matrix_transform.hpp>
-#include<glm/gtc/type_ptr.hpp>
 #include "stb_image.h"
 #include "WindowMan.h"
 #include "Input.h"
@@ -35,7 +32,7 @@ int main() {
 	std::vector<GLuint> indices;
 	std::vector<GLfloat> vertices;
 
-	objects.push_back(new Square(0.5f, 0.5f, 0, 0, 0, 45.0f,1.0f, 1.0f, 1.0f, &vertices, &indices, "wall.jpg"));	
+	objects.push_back(new Circle(0.5f, 0.5f, 36, 0, 0, 0, 1.0f, 1.0f, 1.0f, 0, &vertices, &indices, "wall.jpg"));	
 	
 	BufferManager BufferMan = BufferManager(vertices, indices);
 
@@ -57,6 +54,13 @@ int main() {
 
 		if (keyboard.isKeyDown(Input::ESCAPE)) {
 			glfwSetWindowShouldClose(window->getWindow(), true);
+		}
+
+		if (keyboard.isKeyDown(Input::RIGHT)) {
+			objects[0]->rotate(10.0f);
+		}
+		if (keyboard.isKeyDown(Input::LEFT)) {
+			objects[0]->rotate(-10.0f);
 		}
 
 		ShadingBloke.use();
