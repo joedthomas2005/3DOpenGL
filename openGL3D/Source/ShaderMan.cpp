@@ -17,7 +17,6 @@ ShaderMan::ShaderMan(const char* vertShaderPath, const char* fragShaderPath) {
 	fragString = std::string((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
 	const char* fragShader = fragString.c_str();
 	fileStream.close();
-
 	GLuint vShader, fShader;
 	char infoLog[512];
 	int success;

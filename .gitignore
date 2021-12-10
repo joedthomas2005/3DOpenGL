@@ -1,6 +1,5 @@
-.vs\
-Debug\
-x64\
-openGL3D\x64
-.git\
-openGL3D\Libraries
+.vs\**
+Debug\**
+x64\**
+openGL3D\x64\**
+.git\**
