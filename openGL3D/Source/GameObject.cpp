@@ -1,16 +1,20 @@
 #include "GameObject.h"
 
-GameObject::GameObject(float x, float y, float z, float angle, float xscale, float yscale, float zscale) {
+GameObject::GameObject(float x, float y, float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale) {
 	this->x = x;
 	this->y = y;
 	this->z = z;
-	this->angle = angle;
+	this->pitch = pitch;
+	this->yaw = yaw;
+	this->roll = roll;
 	this->xScale = xscale;
 	this->yScale = yscale;
 	this->zScale = zscale;
 	this->trans = glm::mat4(1.0f);
 	this->trans = glm::translate(this->trans, glm::vec3(x, y, z));
-	this->trans = glm::rotate(this->trans, glm::radians(angle), glm::vec3(0.0f,0.0f,1.0f));
+	this->trans = glm::rotate(this->trans, glm::radians(pitch), glm::vec3(1.0f,0.0f,0.0f));
+	this->trans = glm::rotate(this->trans, glm::radians(yaw), glm::vec3(0.0f, 1.0f, 0.0f));
+	this->trans = glm::rotate(this->trans, glm::radians(roll), glm::vec3(0.0f, 0.0f, 1.0f));
 	this->trans = glm::scale(this->trans, glm::vec3(xscale, yscale, zscale));
 }
 
@@ -62,7 +66,6 @@ void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *ob
 	int EBOvertexoffset;
 	if (EBO->size() > 0) {
 		EBOvertexoffset = *std::max_element(EBO->begin(), EBO->end()) + 1;
-		std::cout << "INDICES INCREASED BY " << EBOvertexoffset << std::endl;
 	}
 	else {
 		EBOvertexoffset = 0;
@@ -70,7 +73,6 @@ void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *ob
 
 	
 	this->EBOindex = EBO->size();
-	std::cout << "STARTS AT INDEX " << EBOindex << std::endl;
 
 	for (int i = 0; i < objIndices->size(); i++) {
 		EBO->push_back((*objIndices)[i] + EBOvertexoffset);
@@ -87,7 +89,9 @@ void GameObject::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *ob
 void GameObject::draw(ShaderMan* ShaderManager) {
 	this->trans = glm::mat4(1.0f);
 	this->trans = glm::translate(this->trans, glm::vec3(x,y,z));
-	this->trans = glm::rotate(this->trans, glm::radians(angle), glm::vec3(0.0f,0.0f,1.0f));
+	this->trans = glm::rotate(this->trans, glm::radians(pitch), glm::vec3(1.0f,0.0f,0.0f));
+	this->trans = glm::rotate(this->trans, glm::radians(yaw), glm::vec3(0.0f, 1.0f, 0.0f));
+	this->trans = glm::rotate(this->trans, glm::radians(roll), glm::vec3(0.0f, 0.0f, 1.0f));
 	this->trans = glm::scale(this->trans, glm::vec3(xScale, yScale, zScale));
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	ShaderManager->setMat4f("transform", this->trans);
@@ -106,6 +110,8 @@ void GameObject::scale(float x, float y, float z){
 	this->zScale += zScale;
 }
 
-void GameObject::rotate(float angle){
-	this->angle += angle;
+void GameObject::rotate(float pitch, float yaw, float roll){
+	this->pitch -= pitch;
+	this->yaw -= yaw;
+	this->roll -= roll;
 }

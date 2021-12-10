@@ -1,5 +1,8 @@
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
+#include<glm/glm/glm.hpp>
+#include<glm/glm/gtc/matrix_transform.hpp>
+#include<glm/glm/gtc/type_ptr.hpp>
 #include<iostream>
 #include<vector>
 #include "stb_image.h"
@@ -16,7 +19,7 @@ int main() {
 
 	glfwInit();
 
-	Window *window = new Window(900, 800, "3D Project", 1);
+	Window *window = new Window(1800,1600, "3D Project", 1);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "glad loading failed" << std::endl;
@@ -24,7 +27,7 @@ int main() {
 
 	Input keyboard = Input(window->getWindow());
 
-	ShaderMan ShadingBloke = ShaderMan("shader.vert", "shader.frag");
+	ShaderMan Shader = ShaderMan("shader.vert", "shader.frag");
 	
 	std::cout << "Loaded window and shader" << std::endl;
 
@@ -32,43 +35,45 @@ int main() {
 	std::vector<GLuint> indices;
 	std::vector<GLfloat> vertices;
 
-	objects.push_back(new Circle(0.5f, 0.5f, 36, 0, 0.5f, 0, 90.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, "compass.png"));
-	objects.push_back(new Circle(0.5f, 0.5f, 36, 0, -0.5f, 0, 90.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, "wall.jpg"));
+	objects.push_back(new Square(1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,0.0f,0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, "wall.jpg"));
 	
 	BufferManager BufferMan = BufferManager(vertices, indices);
 
 	std::cout << "Buffer Objects Created" << std::endl;
 
 	window->setColor(0.0f, 0.0f, 0.0f, 1.0f);
-	std::cout << "Vertices: " << std::endl;
-	for (GLfloat i : vertices) {
-		std::cout << i << ", ";
-	}
+	
 
-	std::cout << std::endl << "Indices" << std::endl;
-	for (GLuint i : indices) {
-		std::cout << i << ", ";
-	}
+
 	while (!window->shouldClose()) {
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		if (keyboard.isKeyDown(Input::ESCAPE)) {
+		if (keyboard.isKeyDown(GLFW_KEY_ESCAPE)) {
 			glfwSetWindowShouldClose(window->getWindow(), true);
 		}
 
-		if (keyboard.isKeyDown(Input::RIGHT)) {
-			objects[0]->rotate(10.0f);
-		}
-		if (keyboard.isKeyDown(Input::LEFT)) {
-			objects[0]->rotate(-10.0f);
+		if (keyboard.isKeyDown(GLFW_KEY_UP)) {
+			objects[0]->rotate(10.0f, 0.0f, 0.0f);
 		}
 
-		ShadingBloke.use();
+		if (keyboard.isKeyDown(GLFW_KEY_DOWN)) {
+			objects[0]->rotate(-10.0f, 0.0f, 0.0f);
+		}
+
+		if (keyboard.isKeyDown(GLFW_KEY_RIGHT)) {
+			objects[0]->rotate(0.0f, 10.0f, 0.0f);
+		}
+
+		if (keyboard.isKeyDown(GLFW_KEY_LEFT)) {
+			objects[0]->rotate(0.0f, -10.0f, 0.0f);
+		}
+		Shader.use();
 
 		for (GameObject* object : objects) {
-			object->draw(&ShadingBloke);
+			object->draw(&Shader);
 		}
+
 		window->update();
 	}
 

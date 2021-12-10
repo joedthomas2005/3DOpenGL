@@ -1,6 +1,13 @@
 #include "Square.h"
 
-Square::Square(float width, float height, float x, float y, float z, float angle, float r, float g, float b, std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO, const char* texturePath) : GameObject(x, y, z, angle, width, height, 1.0f){
+Square::Square(float width, float height,
+	float x, float y, float z,
+	float pitch, float yaw, float roll,
+	float r, float g, float b,
+	std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO, const char* texturePath)
+
+	: GameObject(x, y, z, pitch, yaw, roll, width, height, 1.0f){
+
 	std::vector<GLfloat> verts;
 	
 	std::vector<GLuint> indices = { 2,3,1, 2,1,0 };

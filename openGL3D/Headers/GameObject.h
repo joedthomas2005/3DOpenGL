@@ -14,9 +14,9 @@
 
 class GameObject {
 public:
-	GameObject(float x, float y, float z, float angle, float xscale, float yscale, float zscale);
+	GameObject(float x, float y, float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale);
 	void move(float x, float y, float z);
-	void rotate(float angle);
+	void rotate(float pitch, float yaw, float roll);
 	void scale(float x, float y, float z);
 	void draw(ShaderMan* shaderManager);
 protected:
@@ -31,6 +31,6 @@ private:
 	int EBOindex;
 	int numVerts;
 	int numInds;
-	float x,y,z,xScale,yScale,zScale,angle;
+	float x, y, z, xScale, yScale, zScale, pitch, yaw, roll;
 	std::string TEXTUREDIR = "Resources/Textures/";
 };

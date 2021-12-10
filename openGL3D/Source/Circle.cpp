@@ -1,6 +1,12 @@
 #include "Circle.h"
 
-Circle::Circle(float width, float height, int numberofVerts, float x, float y, float z, float angle, float r, float g, float b, std::vector<GLfloat> *VBO, std::vector<GLuint> *EBO, const char* texturePath) : GameObject(x,y,z, angle, width, height, 1.0f) {
+Circle::Circle(int numberofVerts,
+	float width, float height,
+	float x, float y, float z,
+	float pitch, float yaw, float roll,
+	float r, float g, float b,
+	std::vector<GLfloat> *VBO, std::vector<GLuint> *EBO, const char* texturePath)
+	: GameObject(x,y,z, pitch, yaw, roll, width, height, 1.0f) {
 	std::vector<GLfloat> verts;
 	std::vector<GLuint> inds;
 
@@ -26,7 +32,6 @@ Circle::Circle(float width, float height, int numberofVerts, float x, float y, f
 	verts.push_back(0.5f);
 	const double PI = std::atan(1) * 4.0;
 	for (GLfloat i = 0; i < 360; i += 360/numberofVerts) {
-		std::cout << i << std::endl;
 		verts.push_back(0.25 * std::cos(i * (PI/180.0f)));
 		verts.push_back(0.25 * std::sin(i * (PI/180.0f)));
 		verts.push_back(0);

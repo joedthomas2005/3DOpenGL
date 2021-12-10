@@ -7,8 +7,11 @@
 #include<glm/glm/glm.hpp>
 #include<glm/glm/gtc/matrix_transform.hpp>
 #include<glm/glm/gtc/type_ptr.hpp>
+
 class ShaderMan {
 private:
+	glm::mat4 view;
+	glm::mat4 projection;
 	const std::string SHADERDIR = "Resources/Shaders/";
 public:
 	GLuint ID;
