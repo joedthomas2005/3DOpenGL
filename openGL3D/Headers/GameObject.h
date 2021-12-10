@@ -8,6 +8,7 @@
 #include<algorithm>
 #include<string>
 #include<iostream>
+#include<fstream>
 #include "stb_image.h"
 #include "ShaderMan.h"
 

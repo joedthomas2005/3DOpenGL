@@ -32,7 +32,8 @@ int main() {
 	std::vector<GLuint> indices;
 	std::vector<GLfloat> vertices;
 
-	objects.push_back(new Circle(0.5f, 0.5f, 36, 0, 0, 0, 1.0f, 1.0f, 1.0f, 0, &vertices, &indices, "wall.jpg"));	
+	objects.push_back(new Circle(0.5f, 0.5f, 36, 0, 0.5f, 0, 90.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, "compass.png"));
+	objects.push_back(new Circle(0.5f, 0.5f, 36, 0, -0.5f, 0, 90.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, "wall.jpg"));
 	
 	BufferManager BufferMan = BufferManager(vertices, indices);
 
