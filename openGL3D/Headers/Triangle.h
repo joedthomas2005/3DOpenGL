@@ -1,7 +1,7 @@
 #pragma once
 #include<vector>
-#include "GameObject.h"
-class Triangle : public GameObject {
+#include "GameObject2D.h"
+class Triangle : public GameObject2D {
 public:
 	Triangle(float x1, float y1, float z1,
 		float x2, float y2, float z2,

@@ -130,7 +130,8 @@
   <ItemGroup>
     <ClInclude Include="Headers\BufferManager.h" />
     <ClInclude Include="Headers\Circle.h" />
-    <ClInclude Include="Headers\GameObject.h" />
+    <ClInclude Include="Headers\Cube.h" />
+    <ClInclude Include="Headers\GameObject2D.h" />
     <ClInclude Include="Headers\Input.h" />
     <ClInclude Include="Headers\ShaderMan.h" />
     <ClInclude Include="Headers\Square.h" />
@@ -141,7 +142,8 @@
   <ItemGroup>
     <ClCompile Include="Source\BufferManager.cpp" />
     <ClCompile Include="Source\Circle.cpp" />
-    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\Cube.cpp" />
+    <ClCompile Include="Source\GameObject2D.cpp" />
     <ClCompile Include="Source\glad.c" />
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Main.cpp" />

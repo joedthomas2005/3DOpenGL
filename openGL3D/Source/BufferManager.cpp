@@ -1,6 +1,8 @@
 #include "BufferManager.h"
 
 BufferManager::BufferManager(std::vector<GLfloat> Vertices, std::vector<GLuint> Indices) {
+	this->vertexData = Vertices;
+	this->indexData = Indices;
 	glGenVertexArrays(1, &(this->VAO));
 	glGenBuffers(1, &(this->EBO));
 
@@ -23,4 +25,9 @@ BufferManager::BufferManager(std::vector<GLfloat> Vertices, std::vector<GLuint> 
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(sizeof(GLfloat) * 6));
 	glEnableVertexAttribArray(2);
 
+	glBindVertexArray(0);
+}
+
+void BufferManager::Bind() {
+	glBindVertexArray(this->VAO);
 }

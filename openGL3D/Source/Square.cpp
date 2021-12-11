@@ -6,7 +6,7 @@ Square::Square(float width, float height,
 	float r, float g, float b,
 	std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO, const char* texturePath)
 
-	: GameObject(x, y, z, pitch, yaw, roll, width, height, 1.0f){
+	: GameObject2D(x, y, z, pitch, yaw, roll, width, height, 1.0f){
 
 	std::vector<GLfloat> verts;
 	
@@ -15,8 +15,8 @@ Square::Square(float width, float height,
 	
 	for (int w = 1; w >= -1; w -= 2) {
 		for (int h = 1; h >= -1; h -= 2) {
-			verts.push_back(0 + w * 0.25);
-			verts.push_back(0 + h * 0.25);
+			verts.push_back(w * 0.25);
+			verts.push_back(h * 0.25);
 			verts.push_back(0);
 			verts.push_back(r);
 			verts.push_back(g);

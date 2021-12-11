@@ -6,7 +6,7 @@ Circle::Circle(int numberofVerts,
 	float pitch, float yaw, float roll,
 	float r, float g, float b,
 	std::vector<GLfloat> *VBO, std::vector<GLuint> *EBO, const char* texturePath)
-	: GameObject(x,y,z, pitch, yaw, roll, width, height, 1.0f) {
+	: GameObject2D(x,y,z, pitch, yaw, roll, width, height, 1.0f) {
 	std::vector<GLfloat> verts;
 	std::vector<GLuint> inds;
 
