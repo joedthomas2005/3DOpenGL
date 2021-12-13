@@ -5,8 +5,8 @@ Cube::Cube(float x, float y, float z,
 	float pitch, float yaw, float roll,
 	float r, float g, float b,
 	std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO,
-	const char* texturePath) 
-	:GameObject2D(x, y, z, pitch, yaw, roll, width, height, depth)
+	const char* texturePath[6]) 
+	:GameObject(x, y, z, pitch, yaw, roll, width, height, depth)
 {
 	std::vector<GLuint> indices = {
 		6, 4, 0, 0, 2, 6,		//FRONT
@@ -37,18 +37,8 @@ Cube::Cube(float x, float y, float z,
 				verts.push_back(r);
 				verts.push_back(g);
 				verts.push_back(b);
-				if (w < 0.0f) {
-					verts.push_back(0.0f);
-				}
-				else {
-					verts.push_back(1.0f);
-				}
-				if (h < 0.0f) {
-					verts.push_back(0.0f);
-				}
-				else {
-					verts.push_back(1.0f);
-				}
+				verts.push_back(0);
+				verts.push_back(0);
 			}
 		}
 	}
@@ -61,4 +51,63 @@ Cube::Cube(float x, float y, float z,
 	this->load(&verts, &indices, VBO, EBO, texturePath);
 	
 
+}
+
+void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint>* EBOvector, std::vector<const char*> texturePaths){
+	
+	std::string textureName;
+	std::string completePath;
+
+	int width, height, numChannels;
+	unsigned char* data;
+	
+	glGenTextures(1, &(this->texture));
+	glBindTexture(GL_TEXTURE_CUBE_MAP, this->texture);
+
+	for(int i = 0; i < texturePaths.size(); i++){
+		textureName = texturePaths[i];
+		completePath = TEXTUREDIR + textureName;
+		data = TexUtils::loadImage(completePath, &width, &height, &numChannels);
+		GLenum colourSpace = TexUtils::colourSpace(completePath);
+
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, colourSpace, width, height, 0, colourSpace, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
+		TexUtils::freeTexData(data);
+	}
+	
+	this->VBO = VBOvector;
+	this->EBO = EBOvector;
+	this->objIndices = objIndices;
+	this->objVertices = objVertices;
+	VBO->reserve(objVertices->size());
+	EBO->reserve(objIndices->size());
+
+	int EBOvertexoffset;
+
+	if(EBO->size() > 0){
+		EBOvertexoffset = *std::max_element(EBO->begin(), EBO->end()) + 1;
+	}
+	else{
+		EBOvertexoffset = 0;
+	}
+
+	this->EBOindex = EBO->size();
+
+	for(int i = 0; i < objIndices->size(); i++){
+		EBO->push_back((*objIndices)[i] + EBOvertexoffset);
+	}
+	
+	for(int i = 0; i < objVertices->size(); i++){
+		VBO->push_back((*objVertices)[i]);
+	}
+	this->numVerts = objVertices->size();
+	this->numInds = objIndices->size();
+}
+
+
+void Cube::draw(ShaderMan* Shader){
+	this->genTransformMatrix();
+	glBindTexture(GL_TEXTURE_CUBE_MAP, this->texture);
+	Shader->setMat4f("transform", this->trans);
+	glDrawElements(GL_TRANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
 }
