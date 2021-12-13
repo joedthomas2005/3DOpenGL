@@ -11,8 +11,9 @@
 #include<fstream>
 #include "stb_image.h"
 #include "ShaderMan.h"
+#include "GameObject.h"
 
-class GameObject2D {
+class GameObject2D : public GameObject{
 public:
 	GameObject2D(float x, float y, float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale);
 	void move(float x, float y, float z);
