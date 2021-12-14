@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3DCAFEEA-8FB1-496C-9765-FA3F32A313B5}</ProjectGuid>
     <RootNamespace>openGL3D</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -131,11 +131,13 @@
     <ClInclude Include="Headers\BufferManager.h" />
     <ClInclude Include="Headers\Circle.h" />
     <ClInclude Include="Headers\Cube.h" />
+    <ClInclude Include="Headers\GameObject.h" />
     <ClInclude Include="Headers\GameObject2D.h" />
     <ClInclude Include="Headers\Input.h" />
     <ClInclude Include="Headers\ShaderMan.h" />
     <ClInclude Include="Headers\Square.h" />
     <ClInclude Include="Headers\stb_image.h" />
+    <ClInclude Include="Headers\TexUtils.h" />
     <ClInclude Include="Headers\Triangle.h" />
     <ClInclude Include="Headers\WindowMan.h" />
   </ItemGroup>
@@ -143,6 +145,7 @@
     <ClCompile Include="Source\BufferManager.cpp" />
     <ClCompile Include="Source\Circle.cpp" />
     <ClCompile Include="Source\Cube.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObject2D.cpp" />
     <ClCompile Include="Source\glad.c" />
     <ClCompile Include="Source\Input.cpp" />
@@ -150,6 +153,7 @@
     <ClCompile Include="Source\ShaderMan.cpp" />
     <ClCompile Include="Source\Square.cpp" />
     <ClCompile Include="Source\stb_image.cpp" />
+    <ClCompile Include="Source\TexUtils.cpp" />
     <ClCompile Include="Source\Triangle.cpp" />
     <ClCompile Include="Source\WindowMan.cpp" />
   </ItemGroup>

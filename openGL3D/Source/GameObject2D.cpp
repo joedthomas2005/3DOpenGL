@@ -16,10 +16,12 @@ void GameObject2D::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *
 	glGenTextures(1, &(this->texture));
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	glTexImage2D(GL_TEXTURE_2D, 0, colourSpace, texWidth, texHeight, 0, colourSpace, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 
 	TexUtils::freeTexData(data);
 	std::cout<<glGetError()<<std::endl;
@@ -59,6 +61,7 @@ void GameObject2D::draw(ShaderMan* ShaderManager) {
 	//std::cout<<glm::to_string(this->trans)<<std::endl;
 	ShaderManager->setBool("isCube", false);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	int err = glGetError();
 	if(err){
 		std::cout<<"texture binding errors: "<<err<<std::endl;
@@ -66,7 +69,9 @@ void GameObject2D::draw(ShaderMan* ShaderManager) {
 	ShaderManager->setMat4f("transform", this->trans);
 	glDrawElements(GL_TRIANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
 	err = glGetError();
-	std::cout<<"DRAWING ERRORS: ";
+	if (err) {
+		std::cout << "DRAWING ERRORS: ";
+	}
 	while(err){
 		std::cout<<err<<" ";
 		err = glGetError();	

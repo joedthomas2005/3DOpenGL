@@ -39,9 +39,12 @@ int main() {
 	std::vector<GLuint> indices;
 	std::vector<GLfloat> vertices;
 
-
-	objects.push_back(new Square(1.0f,1.0f,0,0,0,0,0,0,1.0f,1.0f,1.0f,&vertices, &indices, "wall.jpg"));
-
+	std::vector<const char*> cubeTextures = { "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg" };
+	objects.push_back(new Circle(36, 1.0f, 1.0f, -0.8f, 0.8f, 0.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, "compass.png"));
+	objects.push_back(new Cube(0.0f, 0.0f, 0.0f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
+	objects.push_back(new Cube(-0.5f, 0.0f, 0.0f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
+	objects.push_back(new Cube(0.5f, 0.0f, 0.0f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
+	
 	BufferManager BufferMan = BufferManager(vertices, indices);
 
 	std::cout << "Buffer Objects Created" << std::endl;
@@ -59,13 +62,10 @@ int main() {
 			glfwSetWindowShouldClose(window->getWindow(), true);
 		}
 		Shader.use();
-
 		
-		for (GameObject* object: objects) {
-			//std::cout<<"drawing object"<<std::endl;
+		for (GameObject* object : objects) {
 			object->draw(&Shader);
 		}
-
 
 		window->update();
 	}

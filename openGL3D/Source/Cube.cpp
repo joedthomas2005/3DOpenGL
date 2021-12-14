@@ -63,17 +63,21 @@ void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndic
 	
 	glGenTextures(1, &(this->texture));
 	glBindTexture(GL_TEXTURE_CUBE_MAP, this->texture);
-
+	std::cout << "TEXTURE BIND CUBE ERRORS: " << glGetError() << std::endl;
 	for(int i = 0; i < texturePaths.size(); i++){
 		textureName = texturePaths[i];
 		completePath = TEXTUREDIR + textureName;
 		data = TexUtils::loadImage(completePath, &width, &height, &numChannels);
 		GLenum colourSpace = TexUtils::colourSpace(completePath);
-
+		std::cout << "On Texture " << i << std::endl;
+		std::cout << "Binding Texture image" << std::endl;
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, colourSpace, width, height, 0, colourSpace, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
+		std::cout << "Errors: " << glGetError() << std::endl;
 		TexUtils::freeTexData(data);
 	}
+	std::cout << "Generating Mipmap" << std::endl;
+	glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+	std::cout << "Errors: " << glGetError() << std::endl;
 
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -81,6 +85,7 @@ void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndic
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
+	std::cout << "TEXTURE PARAMETER CUBE ERRORS: " << glGetError() << std::endl;
 	this->VBO = VBOvector;
 	this->EBO = EBOvector;
 	this->objIndices = objIndices;
@@ -108,6 +113,7 @@ void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndic
 	}
 	this->numVerts = objVertices->size();
 	this->numInds = objIndices->size();
+	this->genTransformMatrix();
 }
 
 
@@ -115,6 +121,7 @@ void Cube::draw(ShaderMan* Shader){
 	this->genTransformMatrix();
 	Shader->setBool("isCube", true);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, this->texture);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	Shader->setMat4f("transform", this->trans);
 	glDrawElements(GL_TRIANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
 }

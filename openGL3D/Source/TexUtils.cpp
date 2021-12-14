@@ -17,9 +17,8 @@ GLenum TexUtils::colourSpace(std::string texPath){
 		
 	for(int i = 0; i < 128; i++){
 		hexsignature[i] = (unsigned int)(unsigned char)(signature[i]);
-		std::cout<<std::hex<<hexsignature[i]<<",";	
 	}
-	std::cout<<std::endl;
+
 	if(hexsignature[0] == 0x89 && hexsignature[1] == 0x50 && hexsignature[2] == 0x4e && hexsignature[3] == 0x47){
 		return GL_RGBA;
 	}
