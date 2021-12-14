@@ -30,7 +30,7 @@ GameObject::GameObject(float x, float y, float z, float pitch, float yaw, float 
 	this->zScale = zscale;
 };
 
-void genTransformMatrix(){
+void GameObject::genTransformMatrix(){
 	this->trans = glm::mat4(1.0f);
 	this->trans = glm::translate(this->trans, glm::vec3(x,y,z));
 	this->trans = glm::rotate(this->trans, glm::radians(pitch), glm::vec3(1.0f,0.0f,0.0f));

@@ -5,7 +5,7 @@ Cube::Cube(float x, float y, float z,
 	float pitch, float yaw, float roll,
 	float r, float g, float b,
 	std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO,
-	const char* texturePath[6]) 
+	std::vector<const char*> texturePaths) 
 	:GameObject(x, y, z, pitch, yaw, roll, width, height, depth)
 {
 	std::vector<GLuint> indices = {
@@ -48,7 +48,7 @@ Cube::Cube(float x, float y, float z,
 	}
 	std::cout << std::endl;
 	
-	this->load(&verts, &indices, VBO, EBO, texturePath);
+	this->load(&verts, &indices, VBO, EBO, texturePaths);
 	
 
 }
@@ -74,7 +74,13 @@ void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndic
 		glGenerateMipmap(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
 		TexUtils::freeTexData(data);
 	}
-	
+
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
 	this->VBO = VBOvector;
 	this->EBO = EBOvector;
 	this->objIndices = objIndices;
@@ -107,7 +113,8 @@ void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndic
 
 void Cube::draw(ShaderMan* Shader){
 	this->genTransformMatrix();
+	Shader->setBool("isCube", true);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, this->texture);
 	Shader->setMat4f("transform", this->trans);
-	glDrawElements(GL_TRANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
+	glDrawElements(GL_TRIANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
 }

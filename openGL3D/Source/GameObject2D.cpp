@@ -22,7 +22,7 @@ void GameObject2D::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	TexUtils::freeTexData(data);
-
+	std::cout<<glGetError()<<std::endl;
 	this->VBO = VBOvector;
 	this->EBO = EBOvector;
 	this->objIndices = objIndices;
@@ -51,29 +51,27 @@ void GameObject2D::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *
 	
 	this->numVerts = objVertices->size();
 	this->numInds = objIndices->size();
+	this->genTransformMatrix();
 }
 
 void GameObject2D::draw(ShaderMan* ShaderManager) {
 	this->genTransformMatrix();
+	//std::cout<<glm::to_string(this->trans)<<std::endl;
+	ShaderManager->setBool("isCube", false);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
+	int err = glGetError();
+	if(err){
+		std::cout<<"texture binding errors: "<<err<<std::endl;
+	}
 	ShaderManager->setMat4f("transform", this->trans);
 	glDrawElements(GL_TRIANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
+	err = glGetError();
+	std::cout<<"DRAWING ERRORS: ";
+	while(err){
+		std::cout<<err<<" ";
+		err = glGetError();	
+	}
+	std::cout<<std::endl;
 }
 
-void GameObject2D::move(float x, float y, float z) {
-	this->x += x;
-	this->y += y;
-	this->z += z;
-}
 
-void GameObject2D::scale(float x, float y, float z){
-	this->xScale += xScale;
-	this->yScale += yScale;
-	this->zScale += zScale;
-}
-
-void GameObject2D::rotate(float pitch, float yaw, float roll){
-	this->pitch -= pitch;
-	this->yaw -= yaw;
-	this->roll -= roll;
-}

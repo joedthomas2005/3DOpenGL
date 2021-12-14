@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<algorithm>
 #include "GameObject.h"
 #include "ShaderMan.h"
 #include "TexUtils.h"
@@ -10,10 +11,10 @@ public:
 		float pitch, float yaw, float roll, 
 		float r, float g, float b, 
 		std::vector<GLfloat> *VBO, std::vector<GLuint> *EBO, 
-		const char* texturePath);
+		std::vector<const char*> texturePath);
 
 
-	void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, const char* texturePaths[6]);
+	void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, std::vector<const char*> texPaths);
 
 	void draw(ShaderMan* Shader);
 };

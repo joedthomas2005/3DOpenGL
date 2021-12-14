@@ -2,7 +2,7 @@
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include<vector>
-
+#include<iostream>
 class BufferManager {
 public:
 	BufferManager(std::vector<GLfloat> Vertices, std::vector<GLuint> Indices);

@@ -19,4 +19,5 @@ public:
 	void use();
 	void setVec3f(const char* name, GLfloat x, GLfloat y, GLfloat z) const;
 	void setMat4f(const char* name, glm::mat4 data) const;
+	void setBool(const char* name, bool data) const;
 };

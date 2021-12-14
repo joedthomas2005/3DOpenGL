@@ -35,24 +35,21 @@ int main() {
 	
 	std::cout << "Loaded window and shader" << std::endl;
 
-	std::vector<GameObject*> UIobjects;
-	std::vector<GLuint> UIindices;
-	std::vector<GLfloat> UIvertices;
+	std::vector<GameObject*> objects;
+	std::vector<GLuint> indices;
+	std::vector<GLfloat> vertices;
 
 
-	std::vector<Cube*> Cubes;
+	objects.push_back(new Square(1.0f,1.0f,0,0,0,0,0,0,1.0f,1.0f,1.0f,&vertices, &indices, "wall.jpg"));
 
-
-	UIobjects.push_back(new Circle(36, 0.4f, 0.4f, 0.8f, 0.7f, 1.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, &UIvertices, &UIindices, "compass.png"));
-
-	BufferManager UIBufferMan = BufferManager(UIvertices, UIindices);
+	BufferManager BufferMan = BufferManager(vertices, indices);
 
 	std::cout << "Buffer Objects Created" << std::endl;
 
 	window->setColor(1.0f, 1.0f, 1.0f, 1.0f);
 	
 
-	UIBufferMan.Bind();
+	BufferMan.Bind();
 
 	while (!window->shouldClose()) {
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -64,8 +61,9 @@ int main() {
 		Shader.use();
 
 		
-		for (GameObject* UIobject: UIobjects) {
-			UIobject->draw(&Shader);
+		for (GameObject* object: objects) {
+			//std::cout<<"drawing object"<<std::endl;
+			object->draw(&Shader);
 		}
 
 

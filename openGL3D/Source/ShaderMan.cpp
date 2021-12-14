@@ -53,7 +53,7 @@ ShaderMan::ShaderMan(const char* vertShaderPath, const char* fragShaderPath) {
 	view = glm::mat4(1.0f);
 	view = glm::translate(view, glm::vec3(0, 0, -3.0f));
 
-	projection = glm::perspective(glm::radians(45.0f), 1800.0f / 1600.0f, 0.1f, 100.0f);
+	projection = glm::perspective(glm::radians(45.0f), 900.0f / 800.0f, 0.1f, 100.0f);
 
 }
 
@@ -68,5 +68,25 @@ void ShaderMan::setVec3f(const char* name, GLfloat x, GLfloat y, GLfloat z) cons
 }
 
 void ShaderMan::setMat4f(const char* name, glm::mat4 data) const{
+	int err =glGetError();
 	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, glm::value_ptr(data));
+	err = glGetError();
+	if(err){
+		std::cout<<"SHADER MATRIX UNIFORM ERROR: " << err << std::endl;
+	}
+}
+
+void ShaderMan::setBool(const char* name, bool data) const{
+	if(data){
+		//std::cout<<"SETTING FLOAT TO 1.0f"<<std::endl;
+		glUniform1f(glGetUniformLocation(ID, name), 1.0f);
+	}
+	else{
+		//std::cout<<"SETTING FLOAT TO 0.0f"<<std::endl;
+		glUniform1f(glGetUniformLocation(ID, name), 0.0f);
+	}
+	int err = glGetError();
+	if(err){
+		std::cout<<"SHADER UNIFORM ERRORS" <<glGetError()<<std::endl;
+	}
 }
