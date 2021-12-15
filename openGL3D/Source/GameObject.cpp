@@ -8,7 +8,7 @@ void GameObject::move(float x, float y, float z){
 
 void GameObject::rotate(float pitch, float yaw, float roll){
 	this->pitch -= pitch;
-	this->yaw -= yaw;
+	this->yaw += yaw;
 	this->roll -= roll;
 };
 
@@ -18,7 +18,8 @@ void GameObject::scale(float x, float y, float z){
 	this->zScale += z;
 };
 
-GameObject::GameObject(float x, float y, float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale){
+GameObject::GameObject(float x, float y, float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale, bool UI){
+	this->UI = UI;
 	this->x = x;
 	this->y = y;
 	this->z = z;

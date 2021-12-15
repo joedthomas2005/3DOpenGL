@@ -21,7 +21,7 @@ int main() {
 
 	glfwInit();
 	
-	Window *window = new Window(900,800, "3D Project", 1);
+	Window *window = new Window(1800,1600, "3D Project", 1, true);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "glad loading failed" << std::endl;
@@ -31,7 +31,7 @@ int main() {
 
 	Input keyboard = Input(window->getWindow());
 
-	ShaderMan Shader = ShaderMan("shader.vert", "shader.frag");
+	ShaderMan Shader = ShaderMan("shader.vert", "shader.frag", window);
 	
 	std::cout << "Loaded window and shader" << std::endl;
 
@@ -40,10 +40,10 @@ int main() {
 	std::vector<GLfloat> vertices;
 
 	std::vector<const char*> cubeTextures = { "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg" };
-	objects.push_back(new Circle(36, 1.0f, 1.0f, -0.8f, 0.8f, 0.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, "compass.png"));
-	objects.push_back(new Cube(0.0f, 0.0f, 0.0f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
-	objects.push_back(new Cube(-0.5f, 0.0f, 0.0f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
-	objects.push_back(new Cube(0.5f, 0.0f, 0.0f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
+	
+	
+	objects.push_back(new Cube(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
+	//objects.push_back(new Circle(36, 0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, "compass.png", true));
 	
 	BufferManager BufferMan = BufferManager(vertices, indices);
 
@@ -57,7 +57,7 @@ int main() {
 	while (!window->shouldClose()) {
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+		
 		if (keyboard.isKeyDown(GLFW_KEY_ESCAPE)) {
 			glfwSetWindowShouldClose(window->getWindow(), true);
 		}

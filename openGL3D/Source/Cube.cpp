@@ -6,7 +6,7 @@ Cube::Cube(float x, float y, float z,
 	float r, float g, float b,
 	std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO,
 	std::vector<const char*> texturePaths) 
-	:GameObject(x, y, z, pitch, yaw, roll, width, height, depth)
+	:GameObject(x, y, z, pitch, yaw, roll, width, height, depth, false)
 {
 	std::vector<GLuint> indices = {
 		6, 4, 0, 0, 2, 6,		//FRONT
@@ -120,6 +120,7 @@ void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndic
 void Cube::draw(ShaderMan* Shader){
 	this->genTransformMatrix();
 	Shader->setBool("isCube", true);
+	Shader->setBool("isUI", false);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, this->texture);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	Shader->setMat4f("transform", this->trans);

@@ -8,12 +8,15 @@ void Window::frameBufferSizeCallback(GLFWwindow* window, int width, int height) 
 	glViewport(0, 0, width, height);
 }
 
-Window::Window(int width, int height, const char* title, int swap_interval) {
+Window::Window(int width, int height, const char* title, int swap_interval, bool fullScreen) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	WIDTH = width;
+	HEIGHT = height;
 	glfwSetErrorCallback(callbackError);
-	window = glfwCreateWindow(width, height, title, NULL, NULL);
+	GLFWmonitor* fullscreen = fullScreen ? glfwGetPrimaryMonitor() : NULL;
+	window = glfwCreateWindow(width, height, title, fullscreen, NULL);
 	if (window == NULL) {
 		std::cerr << "GLFW FAILED LOADING WINDOW" << std::endl;
 	}
@@ -54,4 +57,8 @@ Window::~Window() {
 	delete pHeight;
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+int* Window::getResolution() {
+	return new int[2]{ WIDTH, HEIGHT};
 }

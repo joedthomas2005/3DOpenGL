@@ -9,14 +9,23 @@
 
 class GameObject {
 public:
-	GameObject(float x, float y,float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale);
+	GameObject(float x, float y,float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale, bool UI);
 	virtual void draw(ShaderMan* Shader) {};
-	virtual void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, const char* texturePath) {};	
-	virtual void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, std::vector<const char*> texturePaths) {};	
+
 
 	void move(float x, float y, float z);
 	void rotate(float pitch, float yaw, float roll);
 	void scale(float x, float y, float z);
+
+protected:
+	virtual void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, 
+		std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, 
+		const char* texturePath) {};
+
+	virtual void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, 
+		std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, 
+		std::vector<const char*> texturePaths) {};
+
 	void genTransformMatrix();
 	std::vector<GLuint>* EBO, *objIndices;
 	std::vector<GLfloat>* VBO, *objVertices;
@@ -24,7 +33,6 @@ public:
 	unsigned int texture;
 	int EBOindex, numVerts, numInds;
 	float x,y, z, pitch, yaw, roll, xScale, yScale, zScale;
-protected:
 	std::string TEXTUREDIR = "Resources/Textures/";
-	
+	bool UI;
 };	

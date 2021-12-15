@@ -1,7 +1,13 @@
 #include "GameObject2D.h"
 
-GameObject2D::GameObject2D(float x, float y, float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale) : GameObject(x,y,z,pitch,yaw,roll,xscale,yscale,zscale){
-}
+GameObject2D::GameObject2D(float x, float y, float z,
+	float pitch, float yaw, float roll,
+	float xscale, float yscale, float zscale,
+	bool UI)
+	: GameObject(x, y, z,
+		pitch, yaw, roll,
+		xscale, yscale, zscale,
+		UI) {}
 
 void GameObject2D::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, const char* texturePath) {
 
@@ -24,7 +30,12 @@ void GameObject2D::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *
 
 
 	TexUtils::freeTexData(data);
-	std::cout<<glGetError()<<std::endl;
+
+	int err = glGetError();
+	if (err) {
+		std::cout << "Problem Loading 2D Texture: Error Code "<<err<< std::endl;
+	}
+
 	this->VBO = VBOvector;
 	this->EBO = EBOvector;
 	this->objIndices = objIndices;
@@ -60,6 +71,7 @@ void GameObject2D::draw(ShaderMan* ShaderManager) {
 	this->genTransformMatrix();
 	//std::cout<<glm::to_string(this->trans)<<std::endl;
 	ShaderManager->setBool("isCube", false);
+	ShaderManager->setBool("isUI", UI);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	int err = glGetError();

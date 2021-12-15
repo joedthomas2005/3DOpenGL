@@ -1,12 +1,12 @@
 #include "ShaderMan.h"
 
-ShaderMan::ShaderMan(const char* vertShaderPath, const char* fragShaderPath) {
+ShaderMan::ShaderMan(const char* vertShaderPath, const char* fragShaderPath, Window* window) {
+	this->window = window;
 	std::string vertShaderName = vertShaderPath;
 	std::string fragShaderName = fragShaderPath;
 	std::string completeVertPath = SHADERDIR + vertShaderName;
 	std::string completeFragPath = SHADERDIR + fragShaderName;
 	std::ifstream fileStream;
-
 	std::string vertString;
 	std::string fragString;
 	fileStream.open(completeVertPath.c_str());
@@ -53,7 +53,9 @@ ShaderMan::ShaderMan(const char* vertShaderPath, const char* fragShaderPath) {
 	view = glm::mat4(1.0f);
 	view = glm::translate(view, glm::vec3(0, 0, -3.0f));
 
-	projection = glm::perspective(glm::radians(45.0f), 900.0f / 800.0f, 0.1f, 100.0f);
+	int* resolution = this->window->getResolution();
+	projection = glm::perspective(glm::radians(45.0f),  (float)resolution[0]/(float)resolution[1] , 0.1f, 100.0f);
+	ortho = glm::ortho(-2.0f, 2.0f, -1.25f, 1.25f, -1.0f, 1.0f);
 
 }
 

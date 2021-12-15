@@ -7,5 +7,5 @@ public:
 		float x2, float y2, float z2,
 		float x3, float y3, float z3,
 		float r, float g, float b,
-		std::vector<GLfloat> *VBO, std::vector<GLuint> *EBO, const char* texturePath);
+		std::vector<GLfloat> *VBO, std::vector<GLuint> *EBO, const char* texturePath, bool UI);
 };
