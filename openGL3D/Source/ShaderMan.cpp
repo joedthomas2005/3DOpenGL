@@ -50,18 +50,14 @@ ShaderMan::ShaderMan(const char* vertShaderPath, const char* fragShaderPath, Win
 	glDeleteShader(vShader);
 	glDeleteShader(fShader);
 
-	view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(0, 0, -3.0f));
-
 	int* resolution = this->window->getResolution();
 	projection = glm::perspective(glm::radians(45.0f),  (float)resolution[0]/(float)resolution[1] , 0.1f, 100.0f);
-	ortho = glm::ortho(-2.0f, 2.0f, -1.25f, 1.25f, -1.0f, 1.0f);
 
 }
 
-void ShaderMan::use() {
+void ShaderMan::use(glm::mat4* view) {
 	glUseProgram(ID);
-	glUniformMatrix4fv(glGetUniformLocation(ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(glGetUniformLocation(ID, "view"), 1, GL_FALSE, glm::value_ptr(*view));
 	glUniformMatrix4fv(glGetUniformLocation(ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 }
 

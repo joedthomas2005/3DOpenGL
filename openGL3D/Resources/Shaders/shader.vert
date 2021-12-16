@@ -9,18 +9,12 @@ out float cubeMap;
 uniform mat4 transform;
 uniform mat4 view;
 uniform mat4 projection;
-uniform mat4 ortho;
 uniform float isCube;
-uniform float isUI;
 
 void main()
 {
-	if(isUI > 0.5){
-		gl_Position = ortho * view * transform * vec4(aPos, 1.0);
-	}
-	else{
-		gl_Position = projection * view * transform * vec4(aPos, 1.0);
-	}
+	gl_Position = projection * view * transform * vec4(aPos, 1.0);
+	
 	vertexColor = aColor;
 	if(isCube > 0.5){
 		TexCoord = aPos;

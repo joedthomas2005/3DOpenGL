@@ -21,7 +21,7 @@ int main() {
 
 	glfwInit();
 	
-	Window *window = new Window(1800,1600, "3D Project", 1, true);
+	Window *window = new Window(1800,1600, "3D Project", 1, false);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "glad loading failed" << std::endl;
@@ -43,7 +43,6 @@ int main() {
 	
 	
 	objects.push_back(new Cube(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
-	//objects.push_back(new Circle(36, 0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, "compass.png", true));
 	
 	BufferManager BufferMan = BufferManager(vertices, indices);
 

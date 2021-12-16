@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Headers\BufferManager.h" />
+    <ClInclude Include="Headers\Camera.h" />
     <ClInclude Include="Headers\Circle.h" />
     <ClInclude Include="Headers\Cube.h" />
     <ClInclude Include="Headers\GameObject.h" />
@@ -143,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\BufferManager.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Circle.cpp" />
     <ClCompile Include="Source\Cube.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
