@@ -16,7 +16,8 @@ public:
 	void initViewport();
 	void setSwapInterval(int interval);
 	bool shouldClose();
-	int* getResolution();
+	int getWidth();
+	int getHeight();
 	void setColor(float r, float g, float b, float a);
 	GLFWwindow* getWindow();
 	void update();

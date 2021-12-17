@@ -1,6 +1,11 @@
 .vs\**
+.vs\
 Debug\**
+Debug\
 x64\**
+x64\
 openGL3D\x64\**
+openGL3D\x64
 .git\**
+.git\
 **\*.swp

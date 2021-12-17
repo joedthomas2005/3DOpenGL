@@ -16,21 +16,21 @@
 #include "Triangle.h"
 #include "Cube.h"
 #include "BufferManager.h"
+#include "Camera.h"
+#include "FPSController.h"
 
 int main() {
 
 	glfwInit();
 	
-	Window *window = new Window(1800,1600, "3D Project", 1, false);
+	Window *window = new Window(1920,1080, "3D Project", 1, false);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "glad loading failed" << std::endl;
 	}
 
 	glEnable(GL_DEPTH_TEST);
-
-	Input keyboard = Input(window->getWindow());
-
+	
 	ShaderMan Shader = ShaderMan("shader.vert", "shader.frag", window);
 	
 	std::cout << "Loaded window and shader" << std::endl;
@@ -40,28 +40,51 @@ int main() {
 	std::vector<GLfloat> vertices;
 
 	std::vector<const char*> cubeTextures = { "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg" };
-	
-	
-	objects.push_back(new Cube(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
+	std::vector<const char*> skyboxTextures = { "skybox/right.jpg", "skybox/left.jpg", "skybox/top.jpg", "skybox/bottom.jpg", "skybox/front.jpg", "skybox/back.jpg" };
+
+	TexUtils::setFlip(false);
+	Cube skybox = Cube(0, 0, 0, 1.0f, 1.0f, 1.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, skyboxTextures);
+
+	TexUtils::setFlip(true);
+	objects.push_back(new Cube(0.0f, 0.0f, 3.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
 	
 	BufferManager BufferMan = BufferManager(vertices, indices);
+
+	Input input = Input(window, 0.1f);
+	Camera camera = Camera(0, 0, 0, 0, 90.0f);
+
+	FPSController camController = FPSController(&input, &camera, true, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D, 5.0f);
 
 	std::cout << "Buffer Objects Created" << std::endl;
 
 	window->setColor(1.0f, 1.0f, 1.0f, 1.0f);
 	
 
-	BufferMan.Bind();
+	float deltaTime = 0;
+	float currentFrame = 0;
+	float lastFrame = 0;
 
 	while (!window->shouldClose()) {
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
 		
-		if (keyboard.isKeyDown(GLFW_KEY_ESCAPE)) {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		if (input.isKeyDown(GLFW_KEY_ESCAPE)) {
 			glfwSetWindowShouldClose(window->getWindow(), true);
 		}
-		Shader.use();
+		camController.checkInput(deltaTime);
+
+		glDepthMask(GL_FALSE);
+		Shader.use(camera.unTranslatedView());
+		skybox.draw(&Shader);
+
+		glDepthMask(GL_TRUE);
+		Shader.use(camera.view);
 		
+
+		skybox.rotate(1.0f, 1.0f, 1.0f);
 		for (GameObject* object : objects) {
 			object->draw(&Shader);
 		}

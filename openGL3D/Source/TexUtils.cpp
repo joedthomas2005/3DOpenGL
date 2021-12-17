@@ -1,8 +1,10 @@
 #include "TexUtils.h"
 
+void TexUtils::setFlip(bool flip) {
+	stbi_set_flip_vertically_on_load(flip);
+}
 
 unsigned char* TexUtils::loadImage(std::string texPath, int* texWidth, int* texHeight, int* numChannels){
-	stbi_set_flip_vertically_on_load(true);
 	return stbi_load(texPath.c_str(), texWidth, texHeight, numChannels, 0);
 };
 

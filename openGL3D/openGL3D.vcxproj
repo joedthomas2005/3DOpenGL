@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="Headers\BufferManager.h" />
     <ClInclude Include="Headers\Camera.h" />
+    <ClInclude Include="Headers\FPSController.h" />
     <ClInclude Include="Headers\Circle.h" />
     <ClInclude Include="Headers\Cube.h" />
     <ClInclude Include="Headers\GameObject.h" />
@@ -145,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="Source\BufferManager.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\FPSController.cpp" />
     <ClCompile Include="Source\Circle.cpp" />
     <ClCompile Include="Source\Cube.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
@@ -165,6 +167,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\compass.png" />
+    <Image Include="Resources\Textures\skybox\back.jpg" />
+    <Image Include="Resources\Textures\skybox\bottom.jpg" />
+    <Image Include="Resources\Textures\skybox\front.jpg" />
+    <Image Include="Resources\Textures\skybox\left.jpg" />
+    <Image Include="Resources\Textures\skybox\right.jpg" />
+    <Image Include="Resources\Textures\skybox\top.jpg" />
     <Image Include="Resources\Textures\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

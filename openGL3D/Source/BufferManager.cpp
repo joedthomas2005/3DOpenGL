@@ -28,5 +28,3 @@ BufferManager::BufferManager(std::vector<GLfloat> Vertices, std::vector<GLuint> 
 	glBindVertexArray(this->VAO);
 }
 
-void BufferManager::Bind() {
-}

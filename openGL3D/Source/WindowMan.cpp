@@ -59,6 +59,10 @@ Window::~Window() {
 	glfwTerminate();
 }
 
-int* Window::getResolution() {
-	return new int[2]{ WIDTH, HEIGHT};
+int Window::getWidth() {
+	return WIDTH;
+}
+
+int Window::getHeight() {
+	return HEIGHT;
 }

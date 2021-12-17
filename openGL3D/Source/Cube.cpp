@@ -64,6 +64,7 @@ void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndic
 	glGenTextures(1, &(this->texture));
 	glBindTexture(GL_TEXTURE_CUBE_MAP, this->texture);
 	std::cout << "TEXTURE BIND CUBE ERRORS: " << glGetError() << std::endl;
+
 	for(int i = 0; i < texturePaths.size(); i++){
 		textureName = texturePaths[i];
 		completePath = TEXTUREDIR + textureName;

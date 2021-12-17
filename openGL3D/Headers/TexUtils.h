@@ -10,4 +10,5 @@ namespace TexUtils{
 	unsigned char* loadImage(std::string texPath, int* texWidth, int* texHeight, int* numChannels);
 	GLenum colourSpace(std::string texPath);
 	void freeTexData(unsigned char* texData);
+	void setFlip(bool flip);
 }
