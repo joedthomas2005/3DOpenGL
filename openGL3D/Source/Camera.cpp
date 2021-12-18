@@ -45,6 +45,7 @@ void Camera::rotate(float pitch, float yaw) {
 
 void Camera::setPos(float x, float y, float z) {
 	this->position = glm::vec3(x, y, z);
+	genVectors();
 }
 void Camera::setRot(float pitch, float yaw) {
 	this->pitch = pitch;

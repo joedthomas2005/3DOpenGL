@@ -35,8 +35,7 @@ void Input::mouse_callback(GLFWwindow* window, double x, double y) {
 	InputData::lastY = y;
 	InputData::yaw += xoffset;
 	InputData::pitch += yoffset;
-	std::cout << "yaw: " << InputData::yaw << std::endl;
-	std::cout << "pitch: " << InputData::pitch << std::endl;
+
 	if (InputData::pitch > 89.0f) {
 		InputData::pitch = 89.0f;
 	}

@@ -23,7 +23,7 @@ int main() {
 
 	glfwInit();
 	
-	Window *window = new Window(1920,1080, "3D Project", 1, false);
+	Window *window = new Window(1800,1600, "3D Project", 1, false);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "glad loading failed" << std::endl;
@@ -42,33 +42,36 @@ int main() {
 	std::vector<const char*> cubeTextures = { "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg" };
 	std::vector<const char*> skyboxTextures = { "skybox/right.jpg", "skybox/left.jpg", "skybox/top.jpg", "skybox/bottom.jpg", "skybox/front.jpg", "skybox/back.jpg" };
 
-	TexUtils::setFlip(false);
 	Cube skybox = Cube(0, 0, 0, 1.0f, 1.0f, 1.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, skyboxTextures);
 
-	TexUtils::setFlip(true);
 	objects.push_back(new Cube(0.0f, 0.0f, 3.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
 	
+
+
 	BufferManager BufferMan = BufferManager(vertices, indices);
 
 	Input input = Input(window, 0.1f);
-	Camera camera = Camera(0, 0, 0, 0, 90.0f);
+	Camera camera = Camera(0, 0, 0, 0, 0);
 
-	FPSController camController = FPSController(&input, &camera, true, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D, 5.0f);
+	FPSController camController = FPSController(&input, &camera, true, GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D, GLFW_KEY_LEFT_SHIFT,5.0f);
 
 	std::cout << "Buffer Objects Created" << std::endl;
 
 	window->setColor(1.0f, 1.0f, 1.0f, 1.0f);
 	
 
-	float deltaTime = 0;
-	float currentFrame = 0;
-	float lastFrame = 0;
+	double deltaTime = 0;
+	double currentFrame = 0;
+	double lastFrame = 0;
 
 	while (!window->shouldClose()) {
+		//calculate frame time
 		currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		
+
+		std::cout << "FPS: " << 1.0f / deltaTime << std::endl;
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		if (input.isKeyDown(GLFW_KEY_ESCAPE)) {
@@ -83,8 +86,6 @@ int main() {
 		glDepthMask(GL_TRUE);
 		Shader.use(camera.view);
 		
-
-		skybox.rotate(1.0f, 1.0f, 1.0f);
 		for (GameObject* object : objects) {
 			object->draw(&Shader);
 		}

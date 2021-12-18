@@ -4,10 +4,11 @@
 
 class FPSController {
 public:
-	FPSController(Input* input, Camera* camera, bool fly, int forwardKey, int backKey, int rightKey, int leftKey, float speed);
+	FPSController(Input* input, Camera* camera, bool fly, int forwardKey, int backKey, int rightKey, int leftKey, int sprintKey, float speed);
 	void checkInput(float deltaTime);
 private:
-	int forwardKey, backKey, rightKey, leftKey;
+	float x, y, z, yVel, xVel, zVel;
+	int forwardKey, backKey, rightKey, leftKey, sprintKey;
 	float speed;
 	bool fly;
 	bool firstFrame;
