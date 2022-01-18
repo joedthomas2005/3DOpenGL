@@ -136,6 +136,7 @@
     <ClInclude Include="Headers\GameObject.h" />
     <ClInclude Include="Headers\GameObject2D.h" />
     <ClInclude Include="Headers\Input.h" />
+    <ClInclude Include="Headers\Mesh.h" />
     <ClInclude Include="Headers\ShaderMan.h" />
     <ClInclude Include="Headers\Square.h" />
     <ClInclude Include="Headers\stb_image.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="Source\glad.c" />
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\ShaderMan.cpp" />
     <ClCompile Include="Source\Square.cpp" />
     <ClCompile Include="Source\stb_image.cpp" />
@@ -173,7 +175,6 @@
     <Image Include="Resources\Textures\skybox\left.jpg" />
     <Image Include="Resources\Textures\skybox\right.jpg" />
     <Image Include="Resources\Textures\skybox\top.jpg" />
-    <Image Include="Resources\Textures\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

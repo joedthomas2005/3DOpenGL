@@ -1,0 +1,5 @@
+﻿  BufferManager.cpp
+  Main.cpp
+h:\c++ projects\opengl3d\opengl3d\source\main.cpp(80): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  openGL3D.vcxproj -> H:\C++ Projects\openGL3D\x64\Debug\openGL3D.exe

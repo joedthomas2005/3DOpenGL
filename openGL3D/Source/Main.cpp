@@ -23,7 +23,7 @@ int main() {
 
 	glfwInit();
 	
-	Window *window = new Window(1800,1600, "3D Project", 1, false);
+	Window *window = new Window(1800,1600, "3D Project", -1, false);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "glad loading failed" << std::endl;
@@ -36,15 +36,15 @@ int main() {
 	std::cout << "Loaded window and shader" << std::endl;
 
 	std::vector<GameObject*> objects;
+
+
 	std::vector<GLuint> indices;
 	std::vector<GLfloat> vertices;
-
-	std::vector<const char*> cubeTextures = { "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg", "wall.jpg" };
 	std::vector<const char*> skyboxTextures = { "skybox/right.jpg", "skybox/left.jpg", "skybox/top.jpg", "skybox/bottom.jpg", "skybox/front.jpg", "skybox/back.jpg" };
 
 	Cube skybox = Cube(0, 0, 0, 1.0f, 1.0f, 1.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, skyboxTextures);
 
-	objects.push_back(new Cube(0.0f, 0.0f, 3.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, cubeTextures));
+	objects.push_back(new Cube(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, "grassblock.jfif"));
 	
 
 
@@ -63,14 +63,14 @@ int main() {
 	double deltaTime = 0;
 	double currentFrame = 0;
 	double lastFrame = 0;
-
+	
 	while (!window->shouldClose()) {
 		//calculate frame time
 		currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		std::cout << "FPS: " << 1.0f / deltaTime << std::endl;
+		std::cout << "FPS: " << 1.0f / deltaTime << "\n";
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -86,14 +86,15 @@ int main() {
 		glDepthMask(GL_TRUE);
 		Shader.use(camera.view);
 		
-		for (GameObject* object : objects) {
+		for (GameObject *object : objects) {
 			object->draw(&Shader);
 		}
 
 		window->update();
 	}
-
 	delete window;
+	char a;
+	std::cin >> a;
 	return 0;
 }
 

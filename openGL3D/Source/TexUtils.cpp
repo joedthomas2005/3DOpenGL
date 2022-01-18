@@ -25,6 +25,7 @@ GLenum TexUtils::colourSpace(std::string texPath){
 		return GL_RGBA;
 	}
 	else if(hexsignature[0] == 0xff && hexsignature[1] == 0xd8){
+		std::cout << "LOADING JPG" << std::endl;
 		return GL_RGB;
 	}
 	else{
