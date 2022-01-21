@@ -7,6 +7,11 @@
 #include "ShaderMan.h"
 #include "TexUtils.h"
 
+struct MeshTexture {
+	unsigned int id;
+	std::string type;
+};
+
 class GameObject {
 public:
 	GameObject(float x, float y,float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale, bool UI);
@@ -25,6 +30,9 @@ protected:
 	virtual void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, 
 		std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, 
 		std::vector<const char*> texturePaths) {};
+
+	virtual void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices,
+		std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector) {};
 
 	void genTransformMatrix();
 	std::vector<GLuint>* EBO, *objIndices;
