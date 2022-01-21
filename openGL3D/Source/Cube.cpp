@@ -4,7 +4,7 @@ Cube::Cube(float x, float y, float z,
 	float width, float height, float depth,
 	float pitch, float yaw, float roll,
 	float r, float g, float b,
-	std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO,
+	std::vector<GLfloat>& VBO, std::vector<GLuint>& EBO,
 	std::vector<const char*> texturePaths) 
 	:GameObject(x, y, z, pitch, yaw, roll, width, height, depth, false)
 {
@@ -48,7 +48,7 @@ Cube::Cube(float x, float y, float z,
 	}
 	std::cout << std::endl;
 	
-	this->load(&verts, &indices, VBO, EBO, texturePaths);
+	this->load(verts, indices, VBO, EBO, texturePaths);
 	
 
 }
@@ -57,7 +57,7 @@ Cube::Cube(float x, float y, float z,
 	float width, float height, float depth,
 	float pitch, float yaw, float roll,
 	float r, float g, float b,
-	std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO,
+	std::vector<GLfloat>& VBO, std::vector<GLuint>& EBO,
 	const char* right, const char* left, const char* top, const char* bottom, const char* front, const char* back)
 	:GameObject(x, y, z, pitch, yaw, roll, width, height, depth, false)
 {
@@ -101,7 +101,7 @@ Cube::Cube(float x, float y, float z,
 	}
 	std::cout << std::endl;
 
-	this->load(&verts, &indices, VBO, EBO, std::vector<const char*>{right, left, top, bottom, front, back});
+	this->load(verts, indices, VBO, EBO, std::vector<const char*>{right, left, top, bottom, front, back});
 
 
 }
@@ -110,7 +110,7 @@ Cube::Cube(float x, float y, float z,
 	float width, float height, float depth,
 	float pitch, float yaw, float roll,
 	float r, float g, float b,
-	std::vector<GLfloat>* VBO, std::vector<GLuint>* EBO,
+	std::vector<GLfloat>& VBO, std::vector<GLuint>& EBO,
 	const char* texturePath)
 	:GameObject(x, y, z, pitch, yaw, roll, width, height, depth, false)
 {
@@ -154,12 +154,12 @@ Cube::Cube(float x, float y, float z,
 	}
 	std::cout << std::endl;
 
-	this->load(&verts, &indices, VBO, EBO, std::vector<const char*>{texturePath, texturePath, texturePath, texturePath ,texturePath, texturePath});
+	this->load(verts, indices, VBO, EBO, std::vector<const char*>{texturePath, texturePath, texturePath, texturePath ,texturePath, texturePath});
 
 
 }
 
-void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint>* EBOvector, std::vector<const char*> texturePaths){
+void Cube::load(std::vector<GLfloat> &objVertices, std::vector<GLuint> &objIndices, std::vector<GLfloat> &VBOvector, std::vector<GLuint>& EBOvector, std::vector<const char*> texturePaths){
 	
 	std::string textureName;
 	std::string completePath;
@@ -193,43 +193,47 @@ void Cube::load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndic
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
 	std::cout << "TEXTURE PARAMETER CUBE ERRORS: " << glGetError() << std::endl;
-	this->VBO = VBOvector;
-	this->EBO = EBOvector;
-	this->objIndices = objIndices;
-	this->objVertices = objVertices;
-	VBO->reserve(objVertices->size());
-	EBO->reserve(objIndices->size());
+
+	VBOvector.reserve(objVertices.size());
+	EBOvector.reserve(objIndices.size());
 
 	int EBOvertexoffset;
 
-	if(EBO->size() > 0){
-		EBOvertexoffset = *std::max_element(EBO->begin(), EBO->end()) + 1;
+	if(EBOvector.size() > 0){
+		EBOvertexoffset = *std::max_element(EBOvector.begin(), EBOvector.end()) + 1;
 	}
 	else{
 		EBOvertexoffset = 0;
 	}
 
-	this->EBOindex = EBO->size();
+	this->EBOindex = EBOvector.size();
 
-	for(int i = 0; i < objIndices->size(); i++){
-		EBO->push_back((*objIndices)[i] + EBOvertexoffset);
+	for(int i = 0; i < objIndices.size(); i++){
+		EBOvector.push_back(objIndices[i] + EBOvertexoffset);
 	}
 	
-	for(int i = 0; i < objVertices->size(); i++){
-		VBO->push_back((*objVertices)[i]);
+	for(int i = 0; i < objVertices.size(); i++){
+		VBOvector.push_back(objVertices[i]);
 	}
-	this->numVerts = objVertices->size();
-	this->numInds = objIndices->size();
+	this->numVerts = objVertices.size();
+	this->numInds = objIndices.size();
+	//std::cout << "NumVerts: " << numVerts << "\n";
+	//std::cout << "NumInds: " << numInds << "\n";
 	this->genTransformMatrix();
 }
 
 
-void Cube::draw(ShaderMan* Shader){
+void Cube::draw(ShaderMan& Shader){
+	glGetError();
 	this->genTransformMatrix();
-	Shader->setBool("isCube", true);
-	Shader->setBool("isUI", false);
+	Shader.setBool("isCube", true);
+	Shader.setBool("isUI", false);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, this->texture);
+	//std::cout << "Texture Binding Errors: " << glGetError() << std::endl;
 	glBindTexture(GL_TEXTURE_2D, 0);
-	Shader->setMat4f("transform", this->trans);
+	//std::cout << "Texture Binding Errors: " << glGetError() << std::endl;
+	Shader.setMat4f("transform", this->trans);
+	//std::cout << "Drawing " << numInds << " indices from " << EBOindex << std::endl;
 	glDrawElements(GL_TRIANGLES, numInds, GL_UNSIGNED_INT, (void*)(EBOindex * sizeof(GLuint)));
+	//std::cout << "DRAWING ERRORS: " << glGetError() << std::endl;
 }

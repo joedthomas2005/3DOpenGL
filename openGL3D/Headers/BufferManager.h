@@ -5,7 +5,7 @@
 #include<iostream>
 class BufferManager {
 public:
-	BufferManager(std::vector<GLfloat> Vertices, std::vector<GLuint> Indices);
+	BufferManager(std::vector<GLfloat>& Vertices, std::vector<GLuint>& Indices);
 private:
 	unsigned int VAO, VBO, EBO;
 	std::vector<GLfloat> vertexData;

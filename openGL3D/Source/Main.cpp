@@ -23,7 +23,7 @@ int main() {
 
 	glfwInit();
 	
-	Window *window = new Window(1800,1600, "3D Project", -1, false);
+	Window *window = new Window(900,800, "3D Project", 1, false);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "glad loading failed" << std::endl;
@@ -42,9 +42,9 @@ int main() {
 	std::vector<GLfloat> vertices;
 	std::vector<const char*> skyboxTextures = { "skybox/right.jpg", "skybox/left.jpg", "skybox/top.jpg", "skybox/bottom.jpg", "skybox/front.jpg", "skybox/back.jpg" };
 
-	Cube skybox = Cube(0, 0, 0, 1.0f, 1.0f, 1.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, &vertices, &indices, skyboxTextures);
+	Cube skybox = Cube(0, 0, 0, 1.0f, 1.0f, 1.0f, 0, 0, 0, 1.0f, 1.0f, 1.0f, vertices, indices, skyboxTextures);
 
-	objects.push_back(new Cube(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, &vertices, &indices, "grassblock.jfif"));
+	objects.push_back(new Cube(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, vertices, indices, "grassblock.jfif"));
 	
 
 
@@ -65,6 +65,7 @@ int main() {
 	double lastFrame = 0;
 	
 	while (!window->shouldClose()) {
+		glGetError();
 		//calculate frame time
 		currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -81,18 +82,19 @@ int main() {
 
 		glDepthMask(GL_FALSE);
 		Shader.use(camera.unTranslatedView());
-		skybox.draw(&Shader);
-
+		skybox.draw(Shader);
+		//std::cout << "ERROR WHILE DRAWING SHADERS? " << glGetError() << std::endl;
 		glDepthMask(GL_TRUE);
 		Shader.use(camera.view);
 		
 		for (GameObject *object : objects) {
-			object->draw(&Shader);
+			object->draw(Shader);
 		}
 
 		window->update();
 	}
 	delete window;
+
 	char a;
 	std::cin >> a;
 	return 0;

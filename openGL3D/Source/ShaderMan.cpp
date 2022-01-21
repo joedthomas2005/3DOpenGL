@@ -74,6 +74,7 @@ void ShaderMan::setMat4f(const char* name, glm::mat4 data) const{
 }
 
 void ShaderMan::setBool(const char* name, bool data) const{
+	glGetError();
 	if(data){
 		//std::cout<<"SETTING FLOAT TO 1.0f"<<std::endl;
 		glUniform1f(glGetUniformLocation(ID, name), 1.0f);
@@ -84,6 +85,6 @@ void ShaderMan::setBool(const char* name, bool data) const{
 	}
 	int err = glGetError();
 	if(err){
-		std::cout<<"SHADER UNIFORM ERRORS" <<glGetError()<<std::endl;
+		std::cout<<"SHADER UNIFORM ERRORS" <<err<<std::endl;
 	}
 }

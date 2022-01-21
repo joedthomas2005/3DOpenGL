@@ -5,7 +5,7 @@ Circle::Circle(int numberofVerts,
 	float x, float y, float z,
 	float pitch, float yaw, float roll,
 	float r, float g, float b,
-	std::vector<GLfloat> *VBO, std::vector<GLuint> *EBO, const char* texturePath, bool UI)
+	std::vector<GLfloat> &VBO, std::vector<GLuint> &EBO, const char* texturePath, bool UI)
 	: GameObject2D(x,y,z, pitch, yaw, roll, width, height, 1.0f, UI) {
 	std::vector<GLfloat> verts;
 	std::vector<GLuint> inds;
@@ -30,6 +30,7 @@ Circle::Circle(int numberofVerts,
 	verts.push_back(b);
 	verts.push_back(0.5f);
 	verts.push_back(0.5f);
+
 	const double PI = std::atan(1) * 4.0;
 	for (GLfloat i = 0; i < 360; i += 360/numberofVerts) {
 		verts.push_back(0.25 * std::cos(i * (PI/180.0f)));
@@ -44,6 +45,6 @@ Circle::Circle(int numberofVerts,
 		verts.push_back(textureY + 0.5f);
 	}
 
-	this->load(&verts, &inds, VBO, EBO, texturePath);
+	this->load(verts, inds, VBO, EBO, texturePath);
 
 }

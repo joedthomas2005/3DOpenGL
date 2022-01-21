@@ -15,7 +15,7 @@ struct MeshTexture {
 class GameObject {
 public:
 	GameObject(float x, float y,float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale, bool UI);
-	virtual void draw(ShaderMan* Shader) {};
+	virtual void draw(ShaderMan& Shader) {};
 
 
 	void move(float x, float y, float z);
@@ -23,20 +23,18 @@ public:
 	void scale(float x, float y, float z);
 
 protected:
-	virtual void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, 
-		std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, 
+	virtual void load(std::vector<GLfloat> &objVertices, std::vector<GLuint> &objIndices, 
+		std::vector<GLfloat> &VBOvector, std::vector<GLuint> &EBOvector, 
 		const char* texturePath) {};
 
-	virtual void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, 
-		std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, 
+	virtual void load(std::vector<GLfloat> &objVertices, std::vector<GLuint> &objIndices, 
+		std::vector<GLfloat> &VBOvector, std::vector<GLuint> &EBOvector, 
 		std::vector<const char*> texturePaths) {};
 
-	virtual void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices,
-		std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector) {};
+	virtual void load(std::vector<GLfloat> &objVertices, std::vector<GLuint> &objIndices,
+		std::vector<GLfloat> &VBOvector, std::vector<GLuint> &EBOvector) {};
 
 	void genTransformMatrix();
-	std::vector<GLuint>* EBO, *objIndices;
-	std::vector<GLfloat>* VBO, *objVertices;
 	glm::mat4 trans;
 	unsigned int texture;
 	int EBOindex, numVerts, numInds;

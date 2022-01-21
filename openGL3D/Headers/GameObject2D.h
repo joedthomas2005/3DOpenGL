@@ -17,7 +17,7 @@
 class GameObject2D : public GameObject{
 public:
 	GameObject2D(float x, float y, float z, float pitch, float yaw, float roll, float xscale, float yscale, float zscale, bool UI);
-	void draw(ShaderMan* shaderManager);
+	void draw(ShaderMan& shaderManager);
 protected:
-	void load(std::vector<GLfloat> *objVertices, std::vector<GLuint> *objIndices, std::vector<GLfloat> *VBOvector, std::vector<GLuint> *EBOvector, const char* texturePath);
+	void load(std::vector<GLfloat> &objVertices, std::vector<GLuint> &objIndices, std::vector<GLfloat> &VBOvector, std::vector<GLuint> &EBOvector, const char* texturePath);
 };
